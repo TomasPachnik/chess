@@ -1,4 +1,4 @@
-package sk.tomas.chess.configuration;
+package sk.tomas.chess.base;
 
 /**
  * Created by tomas on 5/12/17.

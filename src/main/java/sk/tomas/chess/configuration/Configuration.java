@@ -2,10 +2,7 @@ package sk.tomas.chess.configuration;
 
 import sk.tomas.chess.base.Chess;
 import sk.tomas.chess.base.ChessImpl;
-import sk.tomas.chess.gui.Gui;
-import sk.tomas.chess.gui.GuiImpl;
-import sk.tomas.chess.gui.ImagePanel;
-import sk.tomas.chess.gui.MainWindow;
+import sk.tomas.chess.gui.*;
 import sk.tomas.servant.annotation.Bean;
 import sk.tomas.servant.annotation.Config;
 
@@ -34,6 +31,11 @@ public class Configuration {
     @Bean
     public ImagePanel imagePanel() {
         return new ImagePanel();
+    }
+
+    @Bean
+    public Images images() {
+        return new Images();
     }
 
 }

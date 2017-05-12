@@ -1,18 +1,18 @@
 package sk.tomas.chess.gui;
 
-
 import sk.tomas.chess.base.Chess;
 import sk.tomas.chess.bo.Figure;
-import sk.tomas.chess.constants.Constants;
+import sk.tomas.chess.bo.Position;
+import sk.tomas.chess.util.Colors;
+import sk.tomas.chess.util.Utils;
 import sk.tomas.servant.annotation.Inject;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import static sk.tomas.chess.constants.Constants.*;
-import static sk.tomas.chess.constants.Constants.X;
-import static sk.tomas.chess.constants.Constants.Y;
-import static sk.tomas.chess.constants.Constants.tile;
 
 /**
  * Created by tomas on 5/12/17.
@@ -23,6 +23,41 @@ public class ImagePanel extends JPanel {
     private Chess chess;
     @Inject
     private Images images;
+
+    public ImagePanel() {
+        createListeners();
+    }
+
+    private void createListeners() {
+        addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Position position = Utils.getPositionFromClick(e.getX(), e.getY());
+                chess.click(position);
+                repaint();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+    }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -43,9 +78,9 @@ public class ImagePanel extends JPanel {
 
 
     private void drawChessBoard(Graphics g) {
-        g.setColor(Color.WHITE);
+        g.setColor(Colors.WHITE);
         g.fillRect(X, Y, tile * 8, tile * 8);
-        g.setColor(Color.BLACK);
+        g.setColor(Colors.BLACK);
         boolean paint = false;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -56,6 +91,16 @@ public class ImagePanel extends JPanel {
             }
             paint = !paint;
         }
+
+        g.setColor(Colors.SELECTED);
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (chess.getBoard()[i + 2][j + 2].isSelected()) {
+                    g.fillRect(X + (tile * (j)), Y + (tile * (i)), tile, tile);
+                }
+            }
+        }
+
     }
 
 }

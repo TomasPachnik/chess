@@ -1,6 +1,7 @@
 package sk.tomas.chess.base;
 
 import sk.tomas.chess.bo.ChessBoard;
+import sk.tomas.chess.bo.Position;
 import sk.tomas.chess.bo.Tile;
 import sk.tomas.servant.annotation.Inject;
 
@@ -19,8 +20,8 @@ public class ChessImpl implements Chess {
     }
 
     @Override
-    public void performMove() {
-
+    public void click(Position position) {
+        chessBoard.click(position);
     }
 
     @Override

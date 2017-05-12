@@ -1,5 +1,6 @@
 package sk.tomas.chess.base;
 
+import sk.tomas.chess.bo.Position;
 import sk.tomas.chess.bo.Tile;
 
 /**
@@ -10,7 +11,7 @@ public interface Chess {
 
     Tile[][] getBoard();
 
-    void performMove();
+    void click(Position position);
 
     void revertMove();
 

@@ -122,7 +122,7 @@ public class ChessBoard {
         set[9][5].setFigure(new Queen(Color.WHITE));
         set[9][6].setFigure(new King(Color.WHITE));
         set[9][7].setFigure(new Bishop(Color.WHITE));
-        set[4][8].setFigure(new Knight(Color.WHITE));
+        set[9][8].setFigure(new Knight(Color.WHITE));
         set[9][9].setFigure(new Rook(Color.WHITE));
 
         for (int i = 2; i < 10; i++) {

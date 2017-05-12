@@ -19,7 +19,7 @@ public class ChessBoard {
 
     private Tile[][] set;
     private Position activePosition; //oznacene policko (moze byt len take na ktorom je figurka farby, ktora je na tahu)
-    private java.util.List<Position> calculatedPositions; //policka, na ktore sa moze presunut figurka, ktora je oznacena (activePosition)
+    private List<Position> calculatedPositions; //policka, na ktore sa moze presunut figurka, ktora je oznacena (activePosition)
 
     public ChessBoard() {
         setUpTiles();
@@ -112,7 +112,7 @@ public class ChessBoard {
         set[2][8].setFigure(new Knight(Color.BLACK));
         set[2][9].setFigure(new Rook(Color.BLACK));
 
-        for (int i = 0; i < 12; i++) {
+        for (int i = 2; i < 10; i++) {
             set[3][i].setFigure(new Pawn(Color.BLACK));
         }
 
@@ -125,13 +125,13 @@ public class ChessBoard {
         set[9][8].setFigure(new Knight(Color.WHITE));
         set[9][9].setFigure(new Rook(Color.WHITE));
 
-        for (int i = 0; i < 12; i++) {
+        for (int i = 2; i < 10; i++) {
             set[8][i].setFigure(new Pawn(Color.WHITE));
         }
         gui.repaint();
     }
 
-    private Tile getAtPosition(Position p) {
+    public Tile getAtPosition(Position p) {
         return set[p.getX()][p.getY()];
     }
 

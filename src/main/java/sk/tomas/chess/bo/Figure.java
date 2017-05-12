@@ -1,5 +1,6 @@
 package sk.tomas.chess.bo;
 
+import sk.tomas.chess.base.ChessBoard;
 import sk.tomas.chess.constants.Constants;
 
 import java.awt.*;

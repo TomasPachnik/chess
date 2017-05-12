@@ -1,5 +1,7 @@
 package sk.tomas.chess.bo;
 
+import sk.tomas.chess.base.ChessBoard;
+
 import java.util.List;
 
 /**

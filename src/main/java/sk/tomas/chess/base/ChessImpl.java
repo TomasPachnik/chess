@@ -1,6 +1,5 @@
 package sk.tomas.chess.base;
 
-import sk.tomas.chess.bo.ChessBoard;
 import sk.tomas.chess.bo.Position;
 import sk.tomas.chess.bo.Tile;
 import sk.tomas.servant.annotation.Inject;

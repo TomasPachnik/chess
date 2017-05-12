@@ -1,6 +1,6 @@
 package sk.tomas.chess.bo.set;
 
-import sk.tomas.chess.bo.ChessBoard;
+import sk.tomas.chess.base.ChessBoard;
 import sk.tomas.chess.bo.Figure;
 import sk.tomas.chess.bo.Move;
 import sk.tomas.chess.bo.Position;

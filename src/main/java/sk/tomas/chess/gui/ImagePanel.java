@@ -91,7 +91,14 @@ public class ImagePanel extends JPanel {
             }
             paint = !paint;
         }
-
+        g.setColor(Colors.LAST_MOVE);
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (chess.getBoard()[i + 2][j + 2].isLastMove()) {
+                    g.fillRect(X + (tile * (j)), Y + (tile * (i)), tile, tile);
+                }
+            }
+        }
         g.setColor(Colors.SELECTED);
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {

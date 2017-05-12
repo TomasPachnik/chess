@@ -6,6 +6,8 @@ package sk.tomas.chess.gui;
  */
 public interface Gui {
 
+    void init();
+
     void repaint();
 
     void showMessage(String message);

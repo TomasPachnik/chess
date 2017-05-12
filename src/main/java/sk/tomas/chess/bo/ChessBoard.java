@@ -53,4 +53,7 @@ public class ChessBoard {
         }
     }
 
+    public Tile[][] getSet() {
+        return set;
+    }
 }

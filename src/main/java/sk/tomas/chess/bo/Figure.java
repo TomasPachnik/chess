@@ -12,4 +12,8 @@ public abstract class Figure {
     public Figure(Color color) {
         this.color = color;
     }
+
+    public Color getColor() {
+        return color;
+    }
 }

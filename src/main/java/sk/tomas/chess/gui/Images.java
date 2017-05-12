@@ -1,6 +1,9 @@
 package sk.tomas.chess.gui;
 
+import sk.tomas.chess.bo.Figure;
+
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -45,51 +48,42 @@ public class Images {
         }
     }
 
-    public BufferedImage getBlackPawn() {
-        return blackPawn;
+    public BufferedImage getImage(Figure figure) {
+        if (figure == null) {
+            return null;
+        }
+
+        if (figure.getColor().equals(Color.BLACK)) {
+            switch (figure.getClass().getSimpleName()) {
+                case "Rook":
+                    return blackRook;
+                case "Knight":
+                    return blackKnight;
+                case "Bishop":
+                    return blackBishop;
+                case "Queen":
+                    return blackQueen;
+                case "King":
+                    return blackKing;
+                default:
+                    return blackPawn;
+            }
+        } else {
+            switch (figure.getClass().getSimpleName()) {
+                case "Rook":
+                    return whiteRook;
+                case "Knight":
+                    return whiteKnight;
+                case "Bishop":
+                    return whiteBishop;
+                case "Queen":
+                    return whiteQueen;
+                case "King":
+                    return whiteKing;
+                default:
+                    return whitePawn;
+            }
+        }
     }
 
-    public BufferedImage getBlackRook() {
-        return blackRook;
-    }
-
-    public BufferedImage getBlackKnight() {
-        return blackKnight;
-    }
-
-    public BufferedImage getBlackBishop() {
-        return blackBishop;
-    }
-
-    public BufferedImage getBlackQueen() {
-        return blackQueen;
-    }
-
-    public BufferedImage getBlackKing() {
-        return blackKing;
-    }
-
-    public BufferedImage getWhitePawn() {
-        return whitePawn;
-    }
-
-    public BufferedImage getWhiteRook() {
-        return whiteRook;
-    }
-
-    public BufferedImage getWhiteKnight() {
-        return whiteKnight;
-    }
-
-    public BufferedImage getWhiteBishop() {
-        return whiteBishop;
-    }
-
-    public BufferedImage getWhiteQueen() {
-        return whiteQueen;
-    }
-
-    public BufferedImage getWhiteKing() {
-        return whiteKing;
-    }
 }

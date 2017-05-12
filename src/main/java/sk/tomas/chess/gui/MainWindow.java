@@ -4,10 +4,7 @@ import sk.tomas.chess.base.Chess;
 import sk.tomas.servant.annotation.Inject;
 
 import javax.swing.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
 /**
  * Created by tomas on 5/12/17.
@@ -18,17 +15,21 @@ public class MainWindow extends JFrame {
     @Inject
     private ImagePanel imagePanel;
 
+    @Inject
+    private Chess chess;
+
     void init() {
         setTitle("Sach");
         setSize(800, 600);
         setResizable(false);
         setLocationRelativeTo(null);
         getContentPane().add(imagePanel);
-        listeners();
+        createListeners();
+        createMenuBar();
         setVisible(true);
     }
 
-    private void listeners() {
+    private void createListeners() {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -36,5 +37,31 @@ public class MainWindow extends JFrame {
             }
         });
     }
+
+    private void createMenuBar() {
+
+        JMenuBar menubar = new JMenuBar();
+
+        JMenu file = new JMenu("Menu");
+        file.setMnemonic(KeyEvent.VK_F);
+
+        JMenuItem newGame = new JMenuItem("New game");
+        newGame.setMnemonic(KeyEvent.VK_E);
+        newGame.setToolTipText("Start new game");
+        newGame.addActionListener((ActionEvent event) -> chess.newGame());
+
+        JMenuItem exit = new JMenuItem("Exit");
+        exit.setMnemonic(KeyEvent.VK_E);
+        exit.setToolTipText("Exit application");
+        exit.addActionListener((ActionEvent event) -> System.exit(0));
+
+        file.add(newGame);
+        file.add(exit);
+
+        menubar.add(file);
+
+        setJMenuBar(menubar);
+    }
+
 
 }

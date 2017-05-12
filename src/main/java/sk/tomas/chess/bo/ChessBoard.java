@@ -1,6 +1,8 @@
 package sk.tomas.chess.bo;
 
 import sk.tomas.chess.bo.set.*;
+import sk.tomas.chess.gui.Gui;
+import sk.tomas.servant.annotation.Inject;
 
 import java.awt.*;
 
@@ -9,11 +11,13 @@ import java.awt.*;
  */
 public class ChessBoard {
 
+    @Inject
+    private Gui gui;
+
     private Tile[][] set;
 
     public ChessBoard() {
         setUpTiles();
-        setUpPieces();
     }
 
     private void setUpTiles() {
@@ -24,6 +28,13 @@ public class ChessBoard {
             }
         }
     }
+
+    public void setUp() {
+        //TODO zabit vypoctove vlakno, ak bezi
+        setUpTiles();
+        setUpPieces();
+    }
+
 
     private void setUpPieces() {
         set[2][2].setFigure(new Rook(Color.BLACK));
@@ -51,6 +62,7 @@ public class ChessBoard {
         for (int i = 0; i < 12; i++) {
             set[8][i].setFigure(new Pawn(Color.WHITE));
         }
+        gui.repaint();
     }
 
     public Tile[][] getSet() {

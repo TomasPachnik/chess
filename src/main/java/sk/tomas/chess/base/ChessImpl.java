@@ -40,7 +40,7 @@ public class ChessImpl implements Chess {
 
     @Override
     public void newGame() {
-
+        chessBoard.setUp();
     }
 
     @Override

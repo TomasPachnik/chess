@@ -13,6 +13,8 @@ public class GuiImpl implements Gui {
     private MainWindow mainWindow;
     @Inject
     private Chess chess;
+    @Inject
+    private ImagePanel imagePanel;
 
     @Override
     public void init() {
@@ -21,7 +23,7 @@ public class GuiImpl implements Gui {
 
     @Override
     public void repaint() {
-
+        imagePanel.repaint();
     }
 
     @Override

@@ -6,6 +6,7 @@ import sk.tomas.chess.bo.Move;
 import sk.tomas.chess.bo.Position;
 
 import java.awt.*;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -19,7 +20,18 @@ public class Knight extends Figure {
 
     @Override
     public List<Move> getAvailableMoves(ChessBoard chessBoard, Position position) {
-        return null;
+        List<Move> resultList = new LinkedList<>();
+
+        calc2(chessBoard, position, resultList, -1, -2);
+        calc2(chessBoard, position, resultList, -2, -1);
+        calc2(chessBoard, position, resultList, -2, 1);
+        calc2(chessBoard, position, resultList, -1, 2);
+        calc2(chessBoard, position, resultList, 1, 2);
+        calc2(chessBoard, position, resultList, 2, 1);
+        calc2(chessBoard, position, resultList, 2, -1);
+        calc2(chessBoard, position, resultList, 1, -2);
+
+        return resultList;
     }
 
     @Override

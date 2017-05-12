@@ -39,5 +39,12 @@ public abstract class Figure implements Component {
         return true;
     }
 
+    protected void calc2(ChessBoard chb, Position position, List<Move> resultList, int i, int j) {
+        if ((position.getX() + i < Constants.endTile) && (position.getX() + i >= Constants.startTile) && (position.getY() + j < Constants.endTile) && (position.getY() + j >= Constants.startTile)) {
+            if (((chb.getSet()[position.getX() + i][position.getY() + j].getFigure() == null)) || !((chb.getSet()[position.getX() + i][position.getY() + j].getFigure().getColor().equals(chb.getAtPosition(position).getFigure().getColor())))) {
+                resultList.add(new Move(position, new Position(position.getX() + i, position.getY() + j)));
+            }
+        }
+    }
 
 }

@@ -1,4 +1,8 @@
+package sk.tomas.chess;
+
 import org.junit.Test;
+import sk.tomas.chess.Library;
+
 import static org.junit.Assert.*;
 
 /*

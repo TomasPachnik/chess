@@ -2,6 +2,7 @@ package sk.tomas.chess.configuration;
 
 import sk.tomas.chess.base.Chess;
 import sk.tomas.chess.base.ChessImpl;
+import sk.tomas.chess.bo.ChessBoard;
 import sk.tomas.chess.gui.*;
 import sk.tomas.servant.annotation.Bean;
 import sk.tomas.servant.annotation.Config;
@@ -36,6 +37,11 @@ public class Configuration {
     @Bean
     public Images images() {
         return new Images();
+    }
+
+    @Bean
+    public ChessBoard chessBoard() {
+        return new ChessBoard();
     }
 
 }

@@ -4,8 +4,10 @@ import sk.tomas.chess.bo.ChessBoard;
 import sk.tomas.chess.bo.Figure;
 import sk.tomas.chess.bo.Move;
 import sk.tomas.chess.bo.Position;
+import sk.tomas.chess.constants.Constants;
 
 import java.awt.*;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -19,7 +21,31 @@ public class Rook extends Figure {
 
     @Override
     public List<Move> getAvailableMoves(ChessBoard chessBoard, Position position) {
-        return null;
+        List<Move> resultList = new LinkedList<>();
+        for (int i = position.getX() + 1; i < Constants.endTile; i++) {
+            if (calc(chessBoard, position, resultList, i, position.getY())) {
+                break;
+            }
+        }
+
+        for (int i = position.getX() - 1; i >= Constants.startTile; i--) {
+            if (calc(chessBoard, position, resultList, i, position.getY())) {
+                break;
+            }
+        }
+
+        for (int j = position.getY() + 1; j < Constants.endTile; j++) {
+            if (calc(chessBoard, position, resultList, position.getX(), j)) {
+                break;
+            }
+        }
+
+        for (int j = position.getY() - 1; j >= Constants.startTile; j--) {
+            if (calc(chessBoard, position, resultList, position.getX(), j)) {
+                break;
+            }
+        }
+        return resultList;
     }
 
     @Override

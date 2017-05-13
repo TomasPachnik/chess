@@ -91,7 +91,7 @@ public class ChessBoard {
                     Move move = evaluator.calculateNextMove3();
                     if (move != null) {
                         perform(move.getFrom().getPosition(), move.getTo().getPosition());
-                        showtLastMove();
+                        showLastMove();
                         changeActivePositions(false);
                         changeActiveColor();
                         nullActive();
@@ -101,11 +101,11 @@ public class ChessBoard {
             }
             //history.printHistory();
         }
-        showtLastMove();
+        showLastMove();
         gui.repaint();
     }
 
-    private void showtLastMove() {
+    private void showLastMove() {
         if (history.getLast() != null) {
             clearLastMove();
             getAtPosition(history.getLast().getFrom()).setLastMove(true);

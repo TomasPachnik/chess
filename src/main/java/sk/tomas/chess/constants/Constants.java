@@ -9,6 +9,7 @@ public class Constants {
     public static final int startTile = 2;
     public static final int endTile = 10;
     public static final int length = 12;
+    public static final String SOURCE_PATH = "src/main/resources/";
     public static final String IMAGE_PATH = "src/main/resources/images/";
 
     public static final int tile = 60;

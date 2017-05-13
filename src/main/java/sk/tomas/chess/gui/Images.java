@@ -3,12 +3,14 @@ package sk.tomas.chess.gui;
 import sk.tomas.chess.bo.Figure;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import static sk.tomas.chess.constants.Constants.IMAGE_PATH;
+import static sk.tomas.chess.constants.Constants.SOURCE_PATH;
 
 /**
  * Created by tomas on 5/12/17.
@@ -27,6 +29,7 @@ public class Images {
     private BufferedImage whiteBishop;
     private BufferedImage whiteQueen;
     private BufferedImage whiteKing;
+    private ImageIcon loading;
 
     public Images() {
         try {
@@ -42,6 +45,7 @@ public class Images {
             whiteBishop = ImageIO.read(new File(IMAGE_PATH + "Chess_blt60.png"));
             whiteQueen = ImageIO.read(new File(IMAGE_PATH + "Chess_qlt60.png"));
             whiteKing = ImageIO.read(new File(IMAGE_PATH + "Chess_klt60.png"));
+            loading = new ImageIcon(SOURCE_PATH + "loading.gif");
         } catch (IOException e) {
             //TODO log error
             System.err.println(e);
@@ -86,4 +90,7 @@ public class Images {
         }
     }
 
+    public ImageIcon getLoading() {
+        return loading;
+    }
 }

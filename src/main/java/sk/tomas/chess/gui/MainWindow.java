@@ -4,6 +4,7 @@ import sk.tomas.chess.base.Chess;
 import sk.tomas.servant.annotation.Inject;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 /**
@@ -16,6 +17,9 @@ public class MainWindow extends JFrame {
     private ImagePanel imagePanel;
 
     @Inject
+    private Images images;
+
+    @Inject
     private Chess chess;
 
     void init() {
@@ -26,6 +30,7 @@ public class MainWindow extends JFrame {
         getContentPane().add(imagePanel);
         createListeners();
         createMenuBar();
+        createLoading();
         setVisible(true);
     }
 
@@ -63,5 +68,13 @@ public class MainWindow extends JFrame {
         setJMenuBar(menubar);
     }
 
+    private void createLoading() {
+        JLabel loading = new JLabel(images.getLoading());
+        loading.setHorizontalAlignment(JLabel.CENTER);
+        loading.setVerticalAlignment(JLabel.CENTER);
+        loading.setVerticalTextPosition(JLabel.CENTER);
+        loading.setVisible(true);
+        imagePanel.add(loading);
+    }
 
 }

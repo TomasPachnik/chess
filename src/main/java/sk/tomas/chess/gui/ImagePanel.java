@@ -25,6 +25,7 @@ public class ImagePanel extends JPanel {
     private Images images;
 
     public ImagePanel() {
+        super(new BorderLayout());
         createListeners();
     }
 

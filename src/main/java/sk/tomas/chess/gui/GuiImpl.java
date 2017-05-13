@@ -33,11 +33,11 @@ public class GuiImpl implements Gui {
 
     @Override
     public void showWaitingIcon() {
-
+        imagePanel.getLoading().setVisible(true);
     }
 
     @Override
     public void hideWaitingIcon() {
-
+        imagePanel.getLoading().setVisible(false);
     }
 }

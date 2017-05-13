@@ -23,6 +23,7 @@ public class ImagePanel extends JPanel {
     private Chess chess;
     @Inject
     private Images images;
+    private JLabel loading;
 
     public ImagePanel() {
         super(new BorderLayout());
@@ -111,4 +112,16 @@ public class ImagePanel extends JPanel {
 
     }
 
+    public void createLoading() {
+        loading = new JLabel(images.getLoading());
+        loading.setHorizontalAlignment(JLabel.CENTER);
+        loading.setVerticalAlignment(JLabel.CENTER);
+        loading.setVerticalTextPosition(JLabel.CENTER);
+        loading.setVisible(false);
+        add(loading);
+    }
+
+    public JLabel getLoading() {
+        return loading;
+    }
 }

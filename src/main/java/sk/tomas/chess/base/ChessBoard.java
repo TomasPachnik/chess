@@ -125,6 +125,7 @@ public class ChessBoard {
         nullActive();
         showLastMove();
         gui.repaint();
+        gui.hideWaitingIcon();
     }
 
     private void changeActiveColor() {
@@ -197,6 +198,7 @@ public class ChessBoard {
 
     private void calculateMove() {
         thread = new Thread(minimax);
+        gui.showWaitingIcon();
         thread.start();
     }
 

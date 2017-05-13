@@ -17,6 +17,11 @@ public class Minimax implements Runnable {
 
     @Override
     public void run() {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         chessBoard.movePerformed(new Position(3, 4), new Position(5, 4));
     }
 

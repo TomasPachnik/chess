@@ -118,11 +118,12 @@ public class ChessBoard {
         }
     }
 
-    public void movePerformed(Position from, Position to){
+    public void movePerformed(Position from, Position to) {
         perform(from, to);
         changeActiveColor();
         changeActivePositions(false);
         nullActive();
+        showLastMove();
         gui.repaint();
     }
 

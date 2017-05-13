@@ -5,6 +5,7 @@ import sk.tomas.chess.bo.Position;
 import sk.tomas.chess.bo.Tile;
 import sk.tomas.chess.bo.set.*;
 import sk.tomas.chess.gui.Gui;
+import sk.tomas.chess.minimax.Minimax;
 import sk.tomas.servant.annotation.Inject;
 
 import java.awt.*;
@@ -20,12 +21,15 @@ public class ChessBoard {
     private Gui gui;
     @Inject
     private History history;
+    @Inject
+    private Minimax minimax;
 
     private Tile[][] set;
     private boolean whiteTurn; //na rade je biely hrac
     private boolean whitePlayer; //ludsky hrac je biely
     private Position activePosition; //oznacene policko (moze byt len take na ktorom je figurka farby, ktora je na tahu)
     private List<Position> calculatedPositions; //policka, na ktore sa moze presunut figurka, ktora je oznacena (activePosition)
+    private Thread thread; // druhe vlakno urcene na vypocet
 
     public ChessBoard() {
         whiteTurn = true;
@@ -86,18 +90,11 @@ public class ChessBoard {
                 changeActiveColor();
                 changeActivePositions(false);
                 nullActive();
-                /*
+
                 if (whiteTurn != whitePlayer) {
-                    Move move = evaluator.calculateNextMove3();
-                    if (move != null) {
-                        perform(move.getFrom().getPosition(), move.getTo().getPosition());
-                        showLastMove();
-                        changeActivePositions(false);
-                        changeActiveColor();
-                        nullActive();
-                    }
+                    calculateMove();
                 }
-                 */
+
             }
             //history.printHistory();
         }
@@ -119,6 +116,14 @@ public class ChessBoard {
                 set[i][j].setLastMove(false);
             }
         }
+    }
+
+    public void movePerformed(Position from, Position to){
+        perform(from, to);
+        changeActiveColor();
+        changeActivePositions(false);
+        nullActive();
+        gui.repaint();
     }
 
     private void changeActiveColor() {
@@ -188,4 +193,10 @@ public class ChessBoard {
     public Tile[][] getSet() {
         return set;
     }
+
+    private void calculateMove() {
+        thread = new Thread(minimax);
+        thread.start();
+    }
+
 }

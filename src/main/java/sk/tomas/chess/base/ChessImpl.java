@@ -29,11 +29,6 @@ public class ChessImpl implements Chess {
     }
 
     @Override
-    public void calculateMove() {
-
-    }
-
-    @Override
     public void getBestMove() {
 
     }

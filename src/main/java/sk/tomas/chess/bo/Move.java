@@ -20,4 +20,12 @@ public class Move {
     public Position getTo() {
         return to;
     }
+
+    @Override
+    public String toString() {
+        return "Move{" +
+                "from=" + from +
+                ", to=" + to +
+                '}';
+    }
 }

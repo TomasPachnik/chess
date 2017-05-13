@@ -5,6 +5,7 @@ import sk.tomas.chess.base.ChessImpl;
 import sk.tomas.chess.base.ChessBoard;
 import sk.tomas.chess.base.History;
 import sk.tomas.chess.gui.*;
+import sk.tomas.chess.minimax.Minimax;
 import sk.tomas.servant.annotation.Bean;
 import sk.tomas.servant.annotation.Config;
 
@@ -48,6 +49,11 @@ public class Configuration {
     @Bean
     public History history() {
         return new History();
+    }
+
+    @Bean
+    public Minimax minimax() {
+        return new Minimax();
     }
 
 }

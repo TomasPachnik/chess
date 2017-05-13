@@ -15,8 +15,6 @@ public interface Chess {
 
     void revertMove();
 
-    void calculateMove();
-
     void getBestMove();
 
     void newGame();

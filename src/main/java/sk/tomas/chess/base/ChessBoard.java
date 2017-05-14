@@ -4,8 +4,10 @@ import sk.tomas.chess.bo.Move;
 import sk.tomas.chess.bo.Position;
 import sk.tomas.chess.bo.Tile;
 import sk.tomas.chess.bo.set.*;
+import sk.tomas.chess.constants.Constants;
 import sk.tomas.chess.gui.Gui;
 import sk.tomas.chess.minimax.Minimax;
+import sk.tomas.chess.util.Utils;
 import sk.tomas.servant.annotation.Inject;
 
 import java.awt.*;
@@ -51,7 +53,7 @@ public class ChessBoard {
         }
     }
 
-    private void perform(Position from, Position to) {
+    public void perform(Position from, Position to) {
         history.add(from, to, getAtPosition(to).getFigure());
         getAtPosition(to).setFigure(getAtPosition(from).getFigure());
         getAtPosition(from).setFigure(null);
@@ -65,6 +67,13 @@ public class ChessBoard {
 
     private Color getActiveColor() {
         if (whiteTurn) {
+            return Color.WHITE;
+        }
+        return Color.BLACK;
+    }
+
+    public Color getColor(boolean white) {
+        if (white) {
             return Color.WHITE;
         }
         return Color.BLACK;
@@ -104,13 +113,13 @@ public class ChessBoard {
 
     private void showLastMove() {
         if (history.getLast() != null) {
-            clearLastMove();
+            revertLastMove();
             getAtPosition(history.getLast().getFrom()).setLastMove(true);
             getAtPosition(history.getLast().getTo()).setLastMove(true);
         }
     }
 
-    public void clearLastMove() {
+    public void revertLastMove() {
         for (int i = 2; i < 10; i++) {
             for (int j = 2; j < 10; j++) {
                 set[i][j].setLastMove(false);
@@ -200,6 +209,35 @@ public class ChessBoard {
         thread = new Thread(minimax);
         gui.showWaitingIcon();
         thread.start();
+    }
+
+    public List<Move> getAllMoves(boolean white) {
+        List<Move> resultList = new LinkedList<>();
+        for (int i = 2; i < 10; i++) {
+            for (int j = 2; j < 10; j++) {
+                if (set[i][j].getFigure() != null && set[i][j].getFigure().getColor().equals(getColor(white))) {
+                    resultList.addAll(set[i][j].getFigure().getAvailableMoves(this, set[i][j].getPosition()));
+                }
+            }
+        }
+        return resultList;
+    }
+
+    public int evaluate(boolean white) {
+        int result = 0;
+        for (int i = Constants.startTile; i < Constants.endTile; i++) {
+            for (int j = Constants.startTile; j < Constants.endTile; j++) {
+                if (getSet()[i][j].getFigure() != null) {
+                    if (getSet()[i][j].getFigure().getColor().equals(getColor(white))) {
+                        result += getSet()[i][j].getFigure().calculatePositionValue(getSet()[i][j].getPosition());
+                    } else {
+                        result -= getSet()[i][j].getFigure().calculatePositionValue(getSet()[i][j].getPosition());
+                    }
+                }
+                result = result + history.getFallen(white) - history.getFallen(!white);
+            }
+        }
+        return result;
     }
 
 }

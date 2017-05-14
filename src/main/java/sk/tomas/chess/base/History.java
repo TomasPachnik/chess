@@ -4,6 +4,7 @@ import sk.tomas.chess.bo.Figure;
 import sk.tomas.chess.bo.HistoryMove;
 import sk.tomas.chess.bo.Move;
 import sk.tomas.chess.bo.Position;
+import sk.tomas.servant.annotation.Inject;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -12,6 +13,9 @@ import java.util.List;
  * Created by tomas on 5/12/17.
  */
 public class History {
+
+    @Inject
+    private ChessBoard chessBoard;
 
     private List<HistoryMove> moves;
 
@@ -34,6 +38,16 @@ public class History {
         if (!moves.isEmpty()) {
             moves.remove(moves.get(moves.size() - 1));
         }
+    }
+
+    public int getFallen(boolean white) {
+        int result = 0;
+        for (HistoryMove move : moves) {
+            if (move.getFallen() != null && move.getFallen().getColor().equals(chessBoard.getColor(white))) {
+                result += move.getFallen().getDeletedValue();
+            }
+        }
+        return result;
     }
 
 }

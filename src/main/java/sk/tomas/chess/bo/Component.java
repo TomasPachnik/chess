@@ -12,7 +12,7 @@ public interface Component {
 
     List<Move> getAvailableMoves(ChessBoard chessBoard, Position position);
 
-    int calculatePositionValue(Position position);
+    int calculatePositionValue(Position position, boolean white);
 
     int getDeletedValue();
 

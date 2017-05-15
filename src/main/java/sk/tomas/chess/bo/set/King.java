@@ -19,6 +19,11 @@ public class King extends Figure {
     }
 
     @Override
+    public Figure clone() {
+        return new King(getColor());
+    }
+
+    @Override
     public List<Move> getAvailableMoves(ChessBoard chessBoard, Position position) {
         List<Move> resultList = new LinkedList<>();
 
@@ -35,12 +40,12 @@ public class King extends Figure {
     }
 
     @Override
-    public int calculatePositionValue(Position position) {
+    public int calculatePositionValue(Position position, boolean white) {
         return 0;
     }
 
     @Override
     public int getDeletedValue() {
-        return 0;
+        return -1000000;
     }
 }

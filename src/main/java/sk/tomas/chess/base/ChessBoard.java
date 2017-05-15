@@ -1,5 +1,6 @@
 package sk.tomas.chess.base;
 
+import sk.tomas.chess.bo.HistoryMove;
 import sk.tomas.chess.bo.Move;
 import sk.tomas.chess.bo.Position;
 import sk.tomas.chess.bo.Tile;
@@ -7,12 +8,14 @@ import sk.tomas.chess.bo.set.*;
 import sk.tomas.chess.constants.Constants;
 import sk.tomas.chess.gui.Gui;
 import sk.tomas.chess.minimax.Minimax;
-import sk.tomas.chess.util.Utils;
 import sk.tomas.servant.annotation.Inject;
 
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+
+import static sk.tomas.chess.constants.Constants.endTile;
+import static sk.tomas.chess.constants.Constants.startTile;
 
 /**
  * Created by tomas on 5/12/17.
@@ -20,9 +23,9 @@ import java.util.List;
 public class ChessBoard {
 
     @Inject
-    private Gui gui;
+    protected History history;
     @Inject
-    private History history;
+    private Gui gui;
     @Inject
     private Minimax minimax;
 
@@ -72,6 +75,10 @@ public class ChessBoard {
         return Color.BLACK;
     }
 
+    public void setWhiteTurn(boolean whiteTurn) {
+        this.whiteTurn = whiteTurn;
+    }
+
     public Color getColor(boolean white) {
         if (white) {
             return Color.WHITE;
@@ -113,15 +120,15 @@ public class ChessBoard {
 
     private void showLastMove() {
         if (history.getLast() != null) {
-            revertLastMove();
+            hideLastMove();
             getAtPosition(history.getLast().getFrom()).setLastMove(true);
             getAtPosition(history.getLast().getTo()).setLastMove(true);
         }
     }
 
-    public void revertLastMove() {
-        for (int i = 2; i < 10; i++) {
-            for (int j = 2; j < 10; j++) {
+    public void hideLastMove() {
+        for (int i = startTile; i < endTile; i++) {
+            for (int j = startTile; j < endTile; j++) {
                 set[i][j].setLastMove(false);
             }
         }
@@ -178,7 +185,7 @@ public class ChessBoard {
         set[2][8].setFigure(new Knight(Color.BLACK));
         set[2][9].setFigure(new Rook(Color.BLACK));
 
-        for (int i = 2; i < 10; i++) {
+        for (int i = startTile; i < endTile; i++) {
             set[3][i].setFigure(new Pawn(Color.BLACK));
         }
 
@@ -191,7 +198,7 @@ public class ChessBoard {
         set[9][8].setFigure(new Knight(Color.WHITE));
         set[9][9].setFigure(new Rook(Color.WHITE));
 
-        for (int i = 2; i < 10; i++) {
+        for (int i = startTile; i < endTile; i++) {
             set[8][i].setFigure(new Pawn(Color.WHITE));
         }
         gui.repaint();
@@ -213,8 +220,8 @@ public class ChessBoard {
 
     public List<Move> getAllMoves(boolean white) {
         List<Move> resultList = new LinkedList<>();
-        for (int i = 2; i < 10; i++) {
-            for (int j = 2; j < 10; j++) {
+        for (int i = startTile; i < endTile; i++) {
+            for (int j = startTile; j < endTile; j++) {
                 if (set[i][j].getFigure() != null && set[i][j].getFigure().getColor().equals(getColor(white))) {
                     resultList.addAll(set[i][j].getFigure().getAvailableMoves(this, set[i][j].getPosition()));
                 }
@@ -229,15 +236,40 @@ public class ChessBoard {
             for (int j = Constants.startTile; j < Constants.endTile; j++) {
                 if (getSet()[i][j].getFigure() != null) {
                     if (getSet()[i][j].getFigure().getColor().equals(getColor(white))) {
-                        result += getSet()[i][j].getFigure().calculatePositionValue(getSet()[i][j].getPosition());
+                        result += getSet()[i][j].getFigure().calculatePositionValue(getSet()[i][j].getPosition(), white);
                     } else {
-                        result -= getSet()[i][j].getFigure().calculatePositionValue(getSet()[i][j].getPosition());
+                        result -= getSet()[i][j].getFigure().calculatePositionValue(getSet()[i][j].getPosition(), !white);
                     }
                 }
-                result = result + history.getFallen(white) - history.getFallen(!white);
             }
         }
+        result = result + history.getFallen(white) - history.getFallen(!white);
         return result;
     }
 
+    public void revertLastMove() {
+        HistoryMove last = history.getLast();
+        if (last != null) {
+            getAtPosition(last.getFrom()).setFigure(getAtPosition(last.getTo()).getFigure());
+            getAtPosition(last.getTo()).setFigure(last.getFallen());
+            history.removeLast();
+        }
+    }
+
+    @Override
+    public String toString() {
+        System.out.println("***** printing chessboard pieces *****");
+        for (int i = Constants.startTile; i < Constants.endTile; i++) {
+            for (int j = Constants.startTile; j < Constants.endTile; j++) {
+                if (getSet()[i][j].getFigure() != null) {
+                    System.out.print(getSet()[i][j].getFigure() + " ");
+                } else {
+                    System.out.print("- ");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println();
+        return "";
+    }
 }

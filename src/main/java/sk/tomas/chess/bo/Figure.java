@@ -21,6 +21,8 @@ public abstract class Figure implements Component {
         return color;
     }
 
+    public abstract Figure clone();
+
     protected boolean calc(ChessBoard chb, Position position, List<Move> resultList, int i, int j) {
         if ((i < Constants.endTile) && (j < Constants.endTile)) {
             if (chb.getSet()[i][j].getFigure() == null) {
@@ -45,6 +47,24 @@ public abstract class Figure implements Component {
             if (((chb.getSet()[position.getX() + i][position.getY() + j].getFigure() == null)) || !((chb.getSet()[position.getX() + i][position.getY() + j].getFigure().getColor().equals(chb.getAtPosition(position).getFigure().getColor())))) {
                 resultList.add(new Move(position, new Position(position.getX() + i, position.getY() + j)));
             }
+        }
+    }
+
+    @Override
+    public String toString() {
+        switch (getClass().getSimpleName()) {
+            case "Rook":
+                return "R";
+            case "Knight":
+                return "K";
+            case "Bishop":
+                return "B";
+            case "Queen":
+                return "Q";
+            case "King":
+                return "X";
+            default:
+                return "p";
         }
     }
 

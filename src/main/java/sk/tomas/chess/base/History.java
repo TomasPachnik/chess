@@ -15,7 +15,7 @@ import java.util.List;
 public class History {
 
     @Inject
-    private ChessBoard chessBoard;
+    protected ChessBoard chessBoard;
 
     private List<HistoryMove> moves;
 
@@ -27,7 +27,7 @@ public class History {
         moves.add(new HistoryMove(from, to, figure));
     }
 
-    public Move getLast() {
+    public HistoryMove getLast() {
         if (!moves.isEmpty()) {
             return moves.get(moves.size() - 1);
         }
@@ -49,5 +49,4 @@ public class History {
         }
         return result;
     }
-
 }

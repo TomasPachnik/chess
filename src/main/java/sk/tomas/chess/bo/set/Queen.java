@@ -20,6 +20,11 @@ public class Queen extends Figure {
     }
 
     @Override
+    public Figure clone() {
+        return new Queen(getColor());
+    }
+
+    @Override
     public List<Move> getAvailableMoves(ChessBoard chessBoard, Position position) {
         List<Move> resultList = new LinkedList<>();
         for (int i = position.getX() + 1; i < Constants.endTile; i++) {
@@ -88,12 +93,12 @@ public class Queen extends Figure {
     }
 
     @Override
-    public int calculatePositionValue(Position position) {
+    public int calculatePositionValue(Position position, boolean white) {
         return 0;
     }
 
     @Override
     public int getDeletedValue() {
-        return 0;
+        return -300;
     }
 }

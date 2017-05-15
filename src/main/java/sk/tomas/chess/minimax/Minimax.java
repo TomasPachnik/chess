@@ -23,8 +23,6 @@ public class Minimax implements Runnable {
     public void run() {
         clonedChessBoard = Utils.cloneChessBoard(chessBoard);
         bestMove(4);
-        clonedChessBoard.toString();
-        System.out.println(clonedChessBoard.evaluate(true));
         chessBoard.movePerformed(best.getFrom(), best.getTo());
     }
 

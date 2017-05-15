@@ -1,21 +1,21 @@
 package sk.tomas.chess.base;
 
-import sk.tomas.chess.bo.HistoryMove;
-import sk.tomas.chess.bo.Move;
-import sk.tomas.chess.bo.Position;
-import sk.tomas.chess.bo.Tile;
+import sk.tomas.chess.bo.*;
 import sk.tomas.chess.bo.set.*;
 import sk.tomas.chess.constants.Constants;
 import sk.tomas.chess.gui.Gui;
 import sk.tomas.chess.minimax.Minimax;
+import sk.tomas.chess.util.Utils;
 import sk.tomas.servant.annotation.Inject;
 
 import java.awt.*;
 import java.util.*;
 import java.util.List;
 
+import static sk.tomas.chess.constants.Constants.CHESS;
 import static sk.tomas.chess.constants.Constants.endTile;
 import static sk.tomas.chess.constants.Constants.startTile;
+import static sk.tomas.chess.util.Utils.validatePerform;
 
 /**
  * Created by tomas on 5/12/17.
@@ -102,13 +102,15 @@ public class ChessBoard {
                 changeActivePositions(false);
                 nullActive();
             } else {//vykonanie tahu
-                perform(activePosition, position);
-                changeActiveColor();
-                changeActivePositions(false);
-                nullActive();
+                if (validatePerform(position, calculate(activePosition))) {
+                    perform(activePosition, position);
+                    changeActiveColor();
+                    changeActivePositions(false);
+                    nullActive();
 
-                if (whiteTurn != whitePlayer) {
-                    calculateMove();
+                    if (whiteTurn != whitePlayer) {
+                        calculateMove();
+                    }
                 }
 
             }
@@ -142,6 +144,10 @@ public class ChessBoard {
         showLastMove();
         gui.repaint();
         gui.hideWaitingIcon();
+        Position chess = isChess();
+        if (chess != null) {
+            gui.showMessage(CHESS + Utils.castPositionToCoordinate(chess));
+        }
     }
 
     private void changeActiveColor() {
@@ -272,4 +278,31 @@ public class ChessBoard {
         System.out.println();
         return "";
     }
+
+    public Position isChess() {
+        Position kingPosition = getKingPosition(whiteTurn);
+        List<Move> allMoves = getAllMoves(!whiteTurn);
+        for (Move move : allMoves) {
+            if (move.getTo().equals(kingPosition)) {
+                return move.getFrom();
+            }
+        }
+        return null;
+    }
+
+    private Position getKingPosition(boolean white) {
+        for (int i = Constants.startTile; i < Constants.endTile; i++) {
+            for (int j = Constants.startTile; j < Constants.endTile; j++) {
+                if (getSet()[i][j].getFigure() != null) {
+                    if (getSet()[i][j].getFigure().toString().equals("X")) {
+                        if (getSet()[i][j].getFigure().getColor().equals(getColor(white))) {
+                            return new Position(i, j);
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
 }

@@ -3,6 +3,8 @@ package sk.tomas.chess.gui;
 import sk.tomas.chess.base.Chess;
 import sk.tomas.servant.annotation.Inject;
 
+import javax.swing.*;
+
 /**
  * Created by tomas on 5/12/17.
  * implements Gui interface
@@ -28,7 +30,7 @@ public class GuiImpl implements Gui {
 
     @Override
     public void showMessage(String message) {
-
+        JOptionPane.showMessageDialog(new JFrame(), message, "Dialog", JOptionPane.WARNING_MESSAGE);
     }
 
     @Override

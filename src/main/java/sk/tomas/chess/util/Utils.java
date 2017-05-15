@@ -4,9 +4,12 @@ import sk.tomas.chess.base.ChessBoard;
 import sk.tomas.chess.base.ClonedChessBoard;
 import sk.tomas.chess.base.ClonedHistory;
 import sk.tomas.chess.base.History;
+import sk.tomas.chess.bo.Coordinate;
 import sk.tomas.chess.bo.Position;
 import sk.tomas.chess.bo.Tile;
 import sk.tomas.chess.constants.Constants;
+
+import java.util.List;
 
 import static sk.tomas.chess.constants.Constants.endTile;
 import static sk.tomas.chess.constants.Constants.offset;
@@ -41,4 +44,46 @@ public class Utils {
         history.setChessBoard(result);
         return result;
     }
+
+    public static boolean validatePerform(Position to, List<Position> positions) {
+        for (Position p : positions) {
+            if ((p.getX() == to.getX()) && (p.getY() == to.getY())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static Coordinate castPositionToCoordinate(Position p) {
+        String y = "";
+        switch (p.getY()) {
+            case 2:
+                y = "a";
+                break;
+            case 3:
+                y = "b";
+                break;
+            case 4:
+                y = "c";
+                break;
+            case 5:
+                y = "d";
+                break;
+            case 6:
+                y = "e";
+                break;
+            case 7:
+                y = "f";
+                break;
+            case 8:
+                y = "g";
+                break;
+            case 9:
+                y = "h";
+                break;
+        }
+
+        return new Coordinate((endTile - p.getX()) + "", y);
+    }
+
 }

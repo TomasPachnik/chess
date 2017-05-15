@@ -1,5 +1,9 @@
 package sk.tomas.chess.base;
 
+import java.awt.*;
+import java.util.*;
+import java.util.List;
+
 import sk.tomas.chess.bo.*;
 import sk.tomas.chess.bo.set.*;
 import sk.tomas.chess.constants.Constants;
@@ -7,10 +11,6 @@ import sk.tomas.chess.gui.Gui;
 import sk.tomas.chess.minimax.Minimax;
 import sk.tomas.chess.util.Utils;
 import sk.tomas.servant.annotation.Inject;
-
-import java.awt.*;
-import java.util.*;
-import java.util.List;
 
 import static sk.tomas.chess.constants.Constants.CHESS;
 import static sk.tomas.chess.constants.Constants.endTile;
@@ -144,7 +144,7 @@ public class ChessBoard {
         showLastMove();
         gui.repaint();
         gui.hideWaitingIcon();
-        Position chess = isChess();
+        Position chess = isChess(whiteTurn);
         if (chess != null) {
             gui.showMessage(CHESS + Utils.castPositionToCoordinate(chess));
         }
@@ -173,8 +173,16 @@ public class ChessBoard {
         }
         List<Move> calculate = getAtPosition(from).getFigure().getAvailableMoves(this, from);
         List<Position> resultList = new LinkedList<>();
+
+        ClonedChessBoard clonedChessBoard = Utils.cloneChessBoard(this);
+
         for (Move move : calculate) {
-            resultList.add(move.getTo());
+            clonedChessBoard.perform(move.getFrom(), move.getTo());
+            Position chess = clonedChessBoard.isChess(whiteTurn);
+            if (chess == null) {
+                resultList.add(move.getTo());
+            }
+            clonedChessBoard.revertLastMove();
         }
         activePosition = from;
         calculatedPositions = resultList;
@@ -279,9 +287,9 @@ public class ChessBoard {
         return "";
     }
 
-    public Position isChess() {
-        Position kingPosition = getKingPosition(whiteTurn);
-        List<Move> allMoves = getAllMoves(!whiteTurn);
+    public Position isChess(boolean white) {
+        Position kingPosition = getKingPosition(white);
+        List<Move> allMoves = getAllMoves(!white);
         for (Move move : allMoves) {
             if (move.getTo().equals(kingPosition)) {
                 return move.getFrom();

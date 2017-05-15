@@ -6,11 +6,9 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import static sk.tomas.chess.constants.Constants.IMAGE_PATH;
-import static sk.tomas.chess.constants.Constants.SOURCE_PATH;
 
 /**
  * Created by tomas on 5/12/17.
@@ -33,19 +31,19 @@ public class Images {
 
     public Images() {
         try {
-            blackPawn = ImageIO.read(new File(IMAGE_PATH + "Chess_pdt60.png"));
-            blackRook = ImageIO.read(new File(IMAGE_PATH + "Chess_rdt60.png"));
-            blackKnight = ImageIO.read(new File(IMAGE_PATH + "Chess_ndt60.png"));
-            blackBishop = ImageIO.read(new File(IMAGE_PATH + "Chess_bdt60.png"));
-            blackQueen = ImageIO.read(new File(IMAGE_PATH + "Chess_qdt60.png"));
-            blackKing = ImageIO.read(new File(IMAGE_PATH + "Chess_kdt60.png"));
-            whitePawn = ImageIO.read(new File(IMAGE_PATH + "Chess_plt60.png"));
-            whiteRook = ImageIO.read(new File(IMAGE_PATH + "Chess_rlt60.png"));
-            whiteKnight = ImageIO.read(new File(IMAGE_PATH + "Chess_nlt60.png"));
-            whiteBishop = ImageIO.read(new File(IMAGE_PATH + "Chess_blt60.png"));
-            whiteQueen = ImageIO.read(new File(IMAGE_PATH + "Chess_qlt60.png"));
-            whiteKing = ImageIO.read(new File(IMAGE_PATH + "Chess_klt60.png"));
-            loading = new ImageIcon(SOURCE_PATH + "loading.gif");
+            blackPawn = ImageIO.read(getClass().getResourceAsStream(IMAGE_PATH + "Chess_pdt60.png"));
+            blackRook = ImageIO.read(getClass().getResourceAsStream(IMAGE_PATH + "Chess_rdt60.png"));
+            blackKnight = ImageIO.read(getClass().getResourceAsStream(IMAGE_PATH + "Chess_ndt60.png"));
+            blackBishop = ImageIO.read(getClass().getResourceAsStream(IMAGE_PATH + "Chess_bdt60.png"));
+            blackQueen = ImageIO.read(getClass().getResourceAsStream(IMAGE_PATH + "Chess_qdt60.png"));
+            blackKing = ImageIO.read(getClass().getResourceAsStream(IMAGE_PATH + "Chess_kdt60.png"));
+            whitePawn = ImageIO.read(getClass().getResourceAsStream(IMAGE_PATH + "Chess_plt60.png"));
+            whiteRook = ImageIO.read(getClass().getResourceAsStream(IMAGE_PATH + "Chess_rlt60.png"));
+            whiteKnight = ImageIO.read(getClass().getResourceAsStream(IMAGE_PATH + "Chess_nlt60.png"));
+            whiteBishop = ImageIO.read(getClass().getResourceAsStream(IMAGE_PATH + "Chess_blt60.png"));
+            whiteQueen = ImageIO.read(getClass().getResourceAsStream(IMAGE_PATH + "Chess_qlt60.png"));
+            whiteKing = ImageIO.read(getClass().getResourceAsStream(IMAGE_PATH + "Chess_klt60.png"));
+            loading = new ImageIcon(ImageIO.read(getClass().getResourceAsStream(IMAGE_PATH + "loading.gif")));
         } catch (IOException e) {
             //TODO log error
             System.err.println(e);

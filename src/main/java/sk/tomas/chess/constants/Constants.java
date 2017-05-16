@@ -16,6 +16,6 @@ public class Constants {
     public static final int Y = 30;
     public static final int offset = 2;
 
-    public static final String CHESS = "Šach z pozície: ";
+    public static final String CHESS = "Sach z pozicie: ";
 
 }

@@ -13,16 +13,16 @@ import java.util.List;
  */
 public class Minimax implements Runnable {
 
+    private final int BIG_NUMBER = 10000;
     @Inject
     private ChessBoard chessBoard;
-
     private ClonedChessBoard clonedChessBoard;
     private Move best;
 
     @Override
     public void run() {
         clonedChessBoard = Utils.cloneChessBoard(chessBoard);
-        bestMove(4);
+        bestMove(6);
         chessBoard.movePerformed(best.getFrom(), best.getTo());
     }
 
@@ -32,42 +32,58 @@ public class Minimax implements Runnable {
         clonedChessBoard.setWhiteTurn(white);
         List<Move> moves;
         Move bestMove = null;
-        int price, best;
+        int price, alpha;
 
         moves = clonedChessBoard.getAllMoves(white);
-        best = Integer.MIN_VALUE;
+        alpha = Integer.MIN_VALUE;
 
         for (Move move : moves) {
             clonedChessBoard.perform(move.getFrom(), move.getTo());
-            price = -minimax(deep - 1, !white);
+            price = -alphaBeta(deep - 1, !white, Integer.MIN_VALUE, blizKMatu(-alpha));
+            price = dalOdMatu(price);
             clonedChessBoard.revertLastMove();
-            if (price > best) {
-                best = price;
+            if (price > alpha) {
+                alpha = price;
                 bestMove = move;
             }
         }
         this.best = bestMove;
     }
 
-    private int minimax(int deep, boolean white) {
+    private int alphaBeta(int deep, boolean white, int alpha, int beta) {
         List<Move> moves;
-        int price, best;
+        int price;
 
         if (deep <= 0) {
             return clonedChessBoard.evaluate(white);
         }
 
         moves = clonedChessBoard.getAllMoves(white);
-        best = Integer.MIN_VALUE;
 
         for (Move move : moves) {
             clonedChessBoard.perform(move.getFrom(), move.getTo());
-            price = -minimax(deep - 1, !white);
+            price = -alphaBeta(deep - 1, !white, blizKMatu(-beta), blizKMatu(-alpha));
+            price = dalOdMatu(price);
             clonedChessBoard.revertLastMove();
-            if (price > best) {
-                best = price;
+            if (price > alpha) {
+                alpha = price;
+                if (price >= beta) {
+                    return beta;
+                }
             }
         }
-        return best;
+        return alpha;
+    }
+
+    private int blizKMatu(int price) {
+        if (price > BIG_NUMBER) return price + 10;
+        if (price < -BIG_NUMBER) return price - 10;
+        return price;
+    }
+
+    private int dalOdMatu(int price) {
+        if (price > BIG_NUMBER) return price - 10;
+        if (price < -BIG_NUMBER) return price + 10;
+        return price;
     }
 }

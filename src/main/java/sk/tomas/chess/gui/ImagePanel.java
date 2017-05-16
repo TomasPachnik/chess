@@ -34,9 +34,7 @@ public class ImagePanel extends JPanel {
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Position position = Utils.getPositionFromClick(e.getX(), e.getY());
-                chess.click(position);
-                repaint();
+
             }
 
             @Override
@@ -46,7 +44,9 @@ public class ImagePanel extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-
+                Position position = Utils.getPositionFromClick(e.getX(), e.getY());
+                chess.click(position);
+                repaint();
             }
 
             @Override

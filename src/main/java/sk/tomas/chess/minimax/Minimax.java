@@ -53,9 +53,6 @@ public class Minimax implements Runnable {
         List<Move> moves;
         int price, best;
 
-        // if (jsemVMatu(p)) return -MAT;
-        // if (remiza(p)) return 0;
-
         if (deep <= 0) {
             return clonedChessBoard.evaluate(white);
         }

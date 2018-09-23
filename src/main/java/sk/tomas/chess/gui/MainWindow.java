@@ -1,6 +1,7 @@
 package sk.tomas.chess.gui;
 
 import sk.tomas.chess.base.Chess;
+import sk.tomas.servant.annotation.Bean;
 import sk.tomas.servant.annotation.Inject;
 
 import javax.swing.*;
@@ -11,6 +12,7 @@ import java.awt.event.*;
  * Created by tomas on 5/12/17.
  * application main window
  */
+@Bean("mainWindow")
 public class MainWindow extends JFrame {
 
     @Inject

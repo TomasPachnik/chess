@@ -4,9 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import sk.tomas.chess.base.ChessBoard;
 import sk.tomas.chess.bo.Position;
-import sk.tomas.chess.configuration.Configuration;
-import sk.tomas.servant.core.Core;
-import sk.tomas.servant.core.impl.CoreImpl;
+import sk.tomas.servant.core.Servant;
 import sk.tomas.servant.exception.ServantException;
 
 /**
@@ -17,8 +15,8 @@ public class EvaluateTest {
 
     @Test
     public void evaluateTest() throws ServantException {
-        Core core = new CoreImpl(Configuration.class);
-        ChessBoard chessBoard = (ChessBoard) core.getByName("chessBoard");
+        Servant.addConfiguration(Main.class);
+        ChessBoard chessBoard = (ChessBoard) Servant.getByName("chessBoard");
         chessBoard.setUp();
         Assert.assertTrue(chessBoard.evaluate(true) == 0);
         chessBoard.perform(new Position(9, 3), new Position(7, 4));

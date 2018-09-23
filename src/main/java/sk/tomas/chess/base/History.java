@@ -4,6 +4,7 @@ import sk.tomas.chess.bo.Figure;
 import sk.tomas.chess.bo.HistoryMove;
 import sk.tomas.chess.bo.Move;
 import sk.tomas.chess.bo.Position;
+import sk.tomas.servant.annotation.Bean;
 import sk.tomas.servant.annotation.Inject;
 
 import java.util.LinkedList;
@@ -12,6 +13,7 @@ import java.util.List;
 /**
  * Created by tomas on 5/12/17.
  */
+@Bean
 public class History {
 
     @Inject

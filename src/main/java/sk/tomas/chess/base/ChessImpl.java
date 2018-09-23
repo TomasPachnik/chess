@@ -2,12 +2,14 @@ package sk.tomas.chess.base;
 
 import sk.tomas.chess.bo.Position;
 import sk.tomas.chess.bo.Tile;
+import sk.tomas.servant.annotation.Bean;
 import sk.tomas.servant.annotation.Inject;
 
 /**
  * Created by tomas on 5/12/17.
  * implementation of Chess interface
  */
+@Bean("chess")
 public class ChessImpl implements Chess {
 
     @Inject

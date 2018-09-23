@@ -1,9 +1,8 @@
-package sk.tomas.chess.minimax;
+package sk.tomas.chess.base;
 
-import sk.tomas.chess.base.ChessBoard;
-import sk.tomas.chess.base.ClonedChessBoard;
 import sk.tomas.chess.bo.Move;
 import sk.tomas.chess.util.Utils;
+import sk.tomas.servant.annotation.Bean;
 import sk.tomas.servant.annotation.Inject;
 
 import java.util.List;
@@ -11,6 +10,7 @@ import java.util.List;
 /**
  * Created by tomas on 5/13/17.
  */
+@Bean
 public class Minimax implements Runnable {
 
     private final int BIG_NUMBER = 10000;
@@ -39,8 +39,8 @@ public class Minimax implements Runnable {
 
         for (Move move : moves) {
             clonedChessBoard.perform(move.getFrom(), move.getTo());
-            price = -alphaBeta(deep - 1, !white, Integer.MIN_VALUE, blizKMatu(-alpha));
-            price = dalOdMatu(price);
+            price = -alphaBeta(deep - 1, !white, Integer.MIN_VALUE, closeToMate(-alpha));
+            price = awayFromMate(price);
             clonedChessBoard.revertLastMove();
             if (price > alpha) {
                 alpha = price;
@@ -62,8 +62,8 @@ public class Minimax implements Runnable {
 
         for (Move move : moves) {
             clonedChessBoard.perform(move.getFrom(), move.getTo());
-            price = -alphaBeta(deep - 1, !white, blizKMatu(-beta), blizKMatu(-alpha));
-            price = dalOdMatu(price);
+            price = -alphaBeta(deep - 1, !white, closeToMate(-beta), closeToMate(-alpha));
+            price = awayFromMate(price);
             clonedChessBoard.revertLastMove();
             if (price > alpha) {
                 alpha = price;
@@ -75,13 +75,13 @@ public class Minimax implements Runnable {
         return alpha;
     }
 
-    private int blizKMatu(int price) {
+    private int closeToMate(int price) {
         if (price > BIG_NUMBER) return price + 10;
         if (price < -BIG_NUMBER) return price - 10;
         return price;
     }
 
-    private int dalOdMatu(int price) {
+    private int awayFromMate(int price) {
         if (price > BIG_NUMBER) return price - 10;
         if (price < -BIG_NUMBER) return price + 10;
         return price;

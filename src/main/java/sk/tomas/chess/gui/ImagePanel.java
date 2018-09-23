@@ -5,6 +5,7 @@ import sk.tomas.chess.bo.Figure;
 import sk.tomas.chess.bo.Position;
 import sk.tomas.chess.util.Colors;
 import sk.tomas.chess.util.Utils;
+import sk.tomas.servant.annotation.Bean;
 import sk.tomas.servant.annotation.Inject;
 
 import javax.swing.*;
@@ -17,6 +18,7 @@ import static sk.tomas.chess.constants.Constants.*;
 /**
  * Created by tomas on 5/12/17.
  */
+@Bean("imagePanel")
 public class ImagePanel extends JPanel {
 
     @Inject

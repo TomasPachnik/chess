@@ -8,8 +8,8 @@ import sk.tomas.chess.bo.*;
 import sk.tomas.chess.bo.set.*;
 import sk.tomas.chess.constants.Constants;
 import sk.tomas.chess.gui.Gui;
-import sk.tomas.chess.minimax.Minimax;
 import sk.tomas.chess.util.Utils;
+import sk.tomas.servant.annotation.Bean;
 import sk.tomas.servant.annotation.Inject;
 
 import static sk.tomas.chess.constants.Constants.CHESS;
@@ -20,6 +20,7 @@ import static sk.tomas.chess.util.Utils.validatePerform;
 /**
  * Created by tomas on 5/12/17.
  */
+@Bean("chessBoard")
 public class ChessBoard {
 
     @Inject

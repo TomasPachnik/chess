@@ -1,6 +1,7 @@
 package sk.tomas.chess.gui;
 
 import sk.tomas.chess.base.Chess;
+import sk.tomas.servant.annotation.Bean;
 import sk.tomas.servant.annotation.Inject;
 
 import javax.swing.*;
@@ -9,6 +10,7 @@ import javax.swing.*;
  * Created by tomas on 5/12/17.
  * implements Gui interface
  */
+@Bean("gui")
 public class GuiImpl implements Gui {
 
     @Inject

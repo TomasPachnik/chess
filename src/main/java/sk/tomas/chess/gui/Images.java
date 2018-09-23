@@ -1,6 +1,7 @@
 package sk.tomas.chess.gui;
 
 import sk.tomas.chess.bo.Figure;
+import sk.tomas.servant.annotation.Bean;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -13,6 +14,7 @@ import static sk.tomas.chess.constants.Constants.IMAGE_PATH;
 /**
  * Created by tomas on 5/12/17.
  */
+@Bean
 public class Images {
 
     private BufferedImage blackPawn;

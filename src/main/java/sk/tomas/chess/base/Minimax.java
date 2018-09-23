@@ -22,7 +22,7 @@ public class Minimax implements Runnable {
     @Override
     public void run() {
         clonedChessBoard = Utils.cloneChessBoard(chessBoard);
-        bestMove(6);
+        bestMove(chessBoard.getActualDifficulty());
         chessBoard.movePerformed(best.getFrom(), best.getTo());
     }
 

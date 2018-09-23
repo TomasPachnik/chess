@@ -1,8 +1,8 @@
 package sk.tomas.chess.gui;
 
-import sk.tomas.chess.base.Chess;
 import sk.tomas.servant.annotation.Bean;
 import sk.tomas.servant.annotation.Inject;
+import sk.tomas.servant.annotation.PostInit;
 
 import javax.swing.*;
 
@@ -16,11 +16,10 @@ public class GuiImpl implements Gui {
     @Inject
     private MainWindow mainWindow;
     @Inject
-    private Chess chess;
-    @Inject
     private ImagePanel imagePanel;
 
     @Override
+    @PostInit
     public void init() {
         mainWindow.init();
     }

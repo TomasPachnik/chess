@@ -25,11 +25,16 @@ public class ImagePanel extends JPanel {
     private Chess chess;
     @Inject
     private Images images;
-    private JLabel loading;
+
+    private boolean showLoading;
+    private int loadingPositionX;
+    private int loadingPositionY;
 
     public ImagePanel() {
         super(new BorderLayout());
         createListeners();
+        loadingPositionX = X + (4 * tile) - (150 / 2);
+        loadingPositionY = Y + (4 * tile) - (150 / 2);
     }
 
     private void createListeners() {
@@ -67,6 +72,13 @@ public class ImagePanel extends JPanel {
         super.paintComponent(g);
         drawChessBoard(g);
         drawFigures(g);
+        drawLoading(g);
+    }
+
+    private void drawLoading(Graphics g) {
+        if (showLoading) {
+            g.drawImage(images.getLoading(), loadingPositionX, loadingPositionY, this);
+        }
     }
 
     private void drawFigures(Graphics g) {
@@ -114,16 +126,11 @@ public class ImagePanel extends JPanel {
 
     }
 
-    public void createLoading() {
-        loading = new JLabel(images.getLoading());
-        loading.setHorizontalAlignment(JLabel.CENTER);
-        loading.setVerticalAlignment(JLabel.CENTER);
-        loading.setVerticalTextPosition(JLabel.CENTER);
-        loading.setVisible(false);
-        add(loading);
+    public boolean isShowLoading() {
+        return showLoading;
     }
 
-    public JLabel getLoading() {
-        return loading;
+    public void setShowLoading(boolean showLoading) {
+        this.showLoading = showLoading;
     }
 }

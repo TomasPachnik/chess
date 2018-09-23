@@ -10,6 +10,7 @@ public class Constants {
     public static final int endTile = 10;
     public static final int length = 12;
     public static final String IMAGE_PATH = "/images/";
+    public static final String IMAGES = "images/";
 
     public static final int tile = 60;
     public static final int X = 250;

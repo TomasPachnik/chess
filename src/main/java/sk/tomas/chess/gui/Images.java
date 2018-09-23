@@ -8,7 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.URL;
 
+import static sk.tomas.chess.constants.Constants.IMAGES;
 import static sk.tomas.chess.constants.Constants.IMAGE_PATH;
 
 /**
@@ -29,7 +31,7 @@ public class Images {
     private BufferedImage whiteBishop;
     private BufferedImage whiteQueen;
     private BufferedImage whiteKing;
-    private ImageIcon loading;
+    private Image loading;
 
     public Images() {
         try {
@@ -45,7 +47,9 @@ public class Images {
             whiteBishop = ImageIO.read(getClass().getResourceAsStream(IMAGE_PATH + "Chess_blt60.png"));
             whiteQueen = ImageIO.read(getClass().getResourceAsStream(IMAGE_PATH + "Chess_qlt60.png"));
             whiteKing = ImageIO.read(getClass().getResourceAsStream(IMAGE_PATH + "Chess_klt60.png"));
-            loading = new ImageIcon(ImageIO.read(getClass().getResourceAsStream(IMAGE_PATH + "loading.gif")));
+
+            URL url = this.getClass().getClassLoader().getResource(IMAGES + "loading.gif");
+            loading = Toolkit.getDefaultToolkit().createImage(url);
         } catch (IOException e) {
             //TODO log error
             System.err.println(e);
@@ -90,7 +94,7 @@ public class Images {
         }
     }
 
-    public ImageIcon getLoading() {
+    public Image getLoading() {
         return loading;
     }
 }

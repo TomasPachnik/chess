@@ -32,7 +32,7 @@ public class MainWindow extends JFrame {
         getContentPane().add(imagePanel);
         createListeners();
         createMenuBar();
-        imagePanel.createLoading();
+        //imagePanel.createLoading();
         setVisible(true);
     }
 

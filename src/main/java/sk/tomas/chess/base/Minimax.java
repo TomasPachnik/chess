@@ -1,6 +1,7 @@
 package sk.tomas.chess.base;
 
 import sk.tomas.chess.bo.Move;
+import sk.tomas.chess.constants.Configuration;
 import sk.tomas.chess.util.Utils;
 import sk.tomas.servant.annotation.Bean;
 import sk.tomas.servant.annotation.Inject;
@@ -22,7 +23,7 @@ public class Minimax implements Runnable {
     @Override
     public void run() {
         clonedChessBoard = Utils.cloneChessBoard(chessBoard);
-        bestMove(chessBoard.getActualDifficulty());
+        bestMove(Configuration.difficulty);
         chessBoard.movePerformed(best.getFrom(), best.getTo());
     }
 
